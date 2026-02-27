@@ -1917,6 +1917,16 @@ ExAllocatePoolWithTag(IN POOL_TYPE PoolType,
     //
     // Some sanity checks
     //
+    
+	//
+	// Hackfix: some gfx vendor (SIS) driver behave bad on debug builds
+	//
+	//ASSERT(Tag != 0);
+	if (Tag == 0)
+	{
+			Tag = 'oreZ';
+	}
+	
     ASSERT(Tag != 0);
     ASSERT(Tag != ' GIB');
     ASSERT(NumberOfBytes != 0);
