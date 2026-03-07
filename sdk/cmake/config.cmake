@@ -19,9 +19,9 @@ elseif(ARCH STREQUAL "arm64")
 endif()
 
 if(ARCH STREQUAL "i386")
-    set(OARCH "pentium" CACHE STRING
+    set(OARCH "i486" CACHE STRING
     "Generate instructions for this CPU type. Specify one of:
-     pentium, pentiumpro")
+     i486, pentium, pentiumpro")
 elseif(ARCH STREQUAL "amd64")
     set(OARCH "athlon64" CACHE STRING
     "Generate instructions for this CPU type. Specify one of:
@@ -39,7 +39,7 @@ elseif(ARCH STREQUAL "arm64")
 endif()
 
 if(ARCH STREQUAL "i386" OR ARCH STREQUAL "amd64")
-    set(TUNE "generic" CACHE STRING
+    set(TUNE "i486" CACHE STRING
     "Which CPU ReactOS should be optimized for.")
 elseif(ARCH STREQUAL "arm")
     set(TUNE "generic-armv7-a" CACHE STRING

@@ -394,11 +394,13 @@ KiVerifyCpuFeatures(PKPRCB Prcb)
         KeBugCheckEx(UNSUPPORTED_PROCESSOR, 0x2, 0x00000010, 0, 0);
     }
 
+	/* i486 misses cmpxchg8b
     if (!(FeatureBits & KF_CMPXCHG8B))
     {
         KeBugCheckEx(UNSUPPORTED_PROCESSOR, 0x2, 0x00000100, 0, 0);
     }
-
+	*/
+	
     // Check x87 FPU is present. FIXME: put this into FeatureBits?
     KiCpuId(&CpuInfo, 1);
 

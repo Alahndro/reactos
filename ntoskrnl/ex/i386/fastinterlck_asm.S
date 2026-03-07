@@ -89,8 +89,13 @@ _ExpInterlockedPopEntrySListResume@0:
 _ExpInterlockedPopEntrySListFault@0:
     mov ebx, [eax]
 _ExpInterlockedPopEntrySListEnd@0:
-    LOCK cmpxchg8b qword ptr [ebp]
-    jnz _ExpInterlockedPopEntrySListResume@0
+	LOCK cmpxchg [ebp+0], ebx
+	jnz _ExpInterlockedPopEntrySListResume@0
+	push eax
+	mov eax, edx
+	LOCK cmpxchg [ebp+4], ecx
+	pop eax
+	jnz _ExpInterlockedPopEntrySListResume@0
 
     /* Restore registers and return */
 .l7:
@@ -133,7 +138,12 @@ PUBLIC @InterlockedPushEntrySList@8
     lea ecx, [edx + HEX(10001)]
 
     /* Do the exchange */
-    LOCK cmpxchg8b qword ptr [ebp]
+	LOCK cmpxchg [ebp+0], ebx
+	jnz .l8
+	push eax
+	mov eax, edx
+	LOCK cmpxchg [ebp+4], ecx
+	pop eax
     jnz .l8
 
     /* Restore registers and return */
@@ -172,8 +182,13 @@ PUBLIC @ExInterlockedFlushSList@4
     mov cx, bx
 
     /* Do the exchange */
-    LOCK cmpxchg8b qword ptr [ebp]
-    jnz .l9
+	LOCK cmpxchg [ebp+0], ebx
+	jnz .l9
+	push eax
+	mov eax, edx
+	LOCK cmpxchg [ebp+4], ecx
+	pop eax
+	jnz .l9
 
     /* Restore registers and return */
 .l10:

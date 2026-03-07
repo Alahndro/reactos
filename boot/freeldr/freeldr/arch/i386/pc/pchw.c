@@ -463,14 +463,14 @@ FrLdrCheckCpuCompatibility(VOID)
 
         ProcessorFamily = (CpuInformation[0] >> 8) & 0xF;
 
-        /* If it's Family 4 or lower, bugcheck */
-        if (ProcessorFamily < 5)
+        /* If it's Family 3 or lower, bugcheck */
+        if (ProcessorFamily < 4)
         {
             FrLdrBugCheckWithMessage(MISSING_HARDWARE_REQUIREMENTS,
                                      __FILE__,
                                      __LINE__,
-                                     "Processor is too old (family %u < 5)\n"
-                                     "ReactOS requires a Pentium-level processor or newer.",
+                                     "Processor is too old (family %u < 4)\n"
+                                     "ReactOS requires a i486-level processor or newer.",
                                      ProcessorFamily);
         }
     }
