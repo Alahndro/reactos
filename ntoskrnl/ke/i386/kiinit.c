@@ -386,6 +386,7 @@ KiVerifyCpuFeatures(PKPRCB Prcb)
     // 3. Finally, obtain CPU features.
     ULONG64 FeatureBits = KiGetFeatureBits();
 
+    /* i486 misses cmpxchg8b & KF_RDTSC
     // 4. Verify it supports everything we need.
     if (!(FeatureBits & KF_RDTSC))
     {
@@ -394,8 +395,7 @@ KiVerifyCpuFeatures(PKPRCB Prcb)
         KeBugCheckEx(UNSUPPORTED_PROCESSOR, 0x2, 0x00000010, 0, 0);
     }
 
-	/* i486 misses cmpxchg8b
-    if (!(FeatureBits & KF_CMPXCHG8B))
+	if (!(FeatureBits & KF_CMPXCHG8B))
     {
         KeBugCheckEx(UNSUPPORTED_PROCESSOR, 0x2, 0x00000100, 0, 0);
     }
